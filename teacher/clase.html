@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1190,4 +1191,1198 @@
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge - Gestión de Clase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4c84ff;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --bg-dark: #0a0e1a;
+            --bg-card: #151b2e;
+            --bg-card-hover: #1a2238;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(76, 132, 255, 0.18);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(76, 132, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(76, 132, 255, 0.3);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .course-switcher {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .course-switcher select,
+        .code-navigator input {
+            background: rgba(76, 132, 255, 0.1);
+            border: 1px solid rgba(76, 132, 255, 0.3);
+            border-radius: 999px;
+            color: var(--text-primary);
+            padding: 0.35rem 1rem;
+            font-weight: 600;
+        }
+
+        .code-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .code-navigator {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .code-navigator button,
+        .copy-code-btn {
+            border-radius: 999px;
+            border: 1px solid rgba(76, 132, 255, 0.4);
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0.3rem 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .header-links a:hover,
+        .header-links a.active {
+            color: var(--text-primary);
+            border-color: rgba(76, 132, 255, 0.4);
+            background: rgba(76, 132, 255, 0.15);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 160px auto 80px;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.4rem;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(76, 132, 255, 0.15);
+            border: 1px solid rgba(76, 132, 255, 0.35);
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        label {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        input[type="datetime-local"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(76, 132, 255, 0.05);
+            border: 2px solid rgba(76, 132, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.95rem 1.1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(76, 132, 255, 0.15);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 12px;
+            padding: 0.75rem 1.6rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(76, 132, 255, 0.3);
+            color: var(--text-primary);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(76, 132, 255, 0.25);
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .topics-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0;
+        }
+
+        .topic-pill {
+            background: rgba(76, 132, 255, 0.15);
+            border: 1px solid rgba(76, 132, 255, 0.3);
+            border-radius: 999px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .grading-hint {
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .list-item {
+            background: rgba(76, 132, 255, 0.05);
+            border: 1px solid rgba(76, 132, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .material-actions,
+        .enrollment-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.6rem;
+        }
+
+        .grid-two {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .label-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .submissions {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .submission-card {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .submission-card form {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .submission-card input[type="number"] {
+            width: 120px;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(76, 132, 255, 0.18);
+            border: none;
+        }
+
+        .empty-state {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .materials-list iframe {
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            border: none;
+        }
+
+        .materials-list a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .materials-list a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            main {
+                margin-top: 140px;
+                padding: 0 1.2rem;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🎓</div>
+                <span>Knowledge</span>
+            </a>
+            <nav class="header-links">
+                <a href="./mis-clases.html" class="active">Mis cursos</a>
+                <a href="./crear-curso.html">Crear curso</a>
+            </nav>
+            <div class="course-switcher">
+                <span>Curso actual:</span>
+                <select id="courseSwitcher"></select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="section" id="courseOverview">
+                <div class="code-panel">
+                    <div style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
+                        <span class="badge" id="currentCodeLabel">Código disponible</span>
+                        <button class="copy-code-btn" id="copyCurrentCodeBtn">Copiar código actual</button>
+                    </div>
+                    <div class="code-navigator">
+                        <input type="text" id="codeNavigatorInput" class="code-input" placeholder="Ir a curso por código" maxlength="12" />
+                        <button id="codeNavigatorBtn">Ir</button>
+                    </div>
+                </div>
+                <h1 id="courseTitle" style="font-size: 2.4rem; font-weight: 800;"></h1>
+                <p id="courseDescription" style="color: var(--text-secondary); line-height: 1.6;"></p>
+                <div id="courseMeta" style="display: flex; gap: 1rem; flex-wrap: wrap; color: var(--text-secondary);">
+                </div>
+            </div>
+        </section>
+
+        <section class="card" id="contentCard">
+            <h2>Contenido del curso</h2>
+            <div class="content-layout">
+                <div>
+                    <h3>Resumen extendido</h3>
+                    <p id="courseContentText" style="color: var(--text-secondary); line-height: 1.6;">Aún no has agregado información detallada.</p>
+                </div>
+                <div>
+                    <h3>Temario</h3>
+                    <ul id="courseTopicsList" class="topics-list"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-two">
+            <article class="card">
+                <h2>Materiales del curso</h2>
+                <div class="section">
+                    <h3>Agregar video</h3>
+                    <form id="videoForm" class="section">
+                        <div>
+                            <label for="videoTitle">Título</label>
+                            <input type="text" id="videoTitle" required placeholder="Ej. Introducción al módulo 1">
+                        </div>
+                        <div>
+                            <label for="videoDescription">Descripción</label>
+                            <textarea id="videoDescription" placeholder="Detalles o puntos clave del video"></textarea>
+                        </div>
+                        <div>
+                            <label for="videoUrl">Enlace del video (YouTube, Vimeo, etc.)</label>
+                            <input type="url" id="videoUrl" required placeholder="https://www.youtube.com/...">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar video</button>
+                    </form>
+                </div>
+                <hr class="divider">
+                <div class="section">
+                    <h3>Subir documento</h3>
+                    <form id="documentForm" class="section">
+                        <div>
+                            <label for="documentTitle">Título</label>
+                            <input type="text" id="documentTitle" required placeholder="Ej. Actividad práctica 1">
+                        </div>
+                        <div>
+                            <label for="documentDescription">Descripción</label>
+                            <textarea id="documentDescription" placeholder="Detalle brevemente el objetivo del documento"></textarea>
+                        </div>
+                        <div>
+                            <label for="documentFile">Archivo (PDF, DOCX, etc.)</label>
+                            <input type="file" id="documentFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subir documento</button>
+                    </form>
+                </div>
+                <hr class="divider">
+                <div class="section">
+                    <h3>Materiales disponibles</h3>
+                    <div id="materialsList" class="materials-list list"></div>
+                </div>
+            </article>
+
+            <article class="card" id="studentsCard">
+                <h2>Gestión de estudiantes</h2>
+                <div class="section">
+                    <h3>Solicitudes pendientes</h3>
+                    <div id="pendingEnrollments" class="list"></div>
+                </div>
+                <hr class="divider">
+                <div class="section">
+                    <h3>Estudiantes aprobados</h3>
+                    <div id="approvedEnrollments" class="list"></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="card" id="gradingCenter">
+            <h2>Centro de calificaciones</h2>
+            <p class="grading-hint">Revisa las entregas más recientes y asigna calificaciones sin salir de este panel.</p>
+            <div id="gradingList" class="list"></div>
+        </section>
+
+        <section class="card">
+            <h2>Tareas y evaluaciones</h2>
+            <div class="section">
+                <h3>Crear nueva tarea</h3>
+                <form id="assignmentForm" class="section">
+                    <div>
+                        <label for="assignmentTitle">Título</label>
+                        <input type="text" id="assignmentTitle" required placeholder="Ej. Proyecto de análisis de datos">
+                    </div>
+                    <div>
+                        <label for="assignmentDescription">Descripción</label>
+                        <textarea id="assignmentDescription" required placeholder="Instrucciones detalladas de la tarea"></textarea>
+                    </div>
+                    <div>
+                        <label for="assignmentDueDate">Fecha límite</label>
+                        <input type="datetime-local" id="assignmentDueDate">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Publicar tarea</button>
+                </form>
+            </div>
+            <hr class="divider">
+            <div class="section">
+                <h3>Tareas publicadas</h3>
+                <div id="assignmentsList" class="list"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const API_BASE = (() => {
+            if (window.API_URL && window.API_URL.trim()) {
+                return window.API_URL.replace(/\/$/, '');
+            }
+            const origin = window.location.origin;
+            if (origin.includes('5173')) {
+                return 'http://localhost:8081/api/v1';
+            }
+            return `${origin.replace(/\/$/, '')}/api/v1`;
+        })();
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        const courseId = new URLSearchParams(window.location.search).get('courseId');
+
+        if (!token || role !== 'teacher' || !courseId) {
+            window.location.href = '../login.html';
+        }
+
+        const authHeaders = {
+            'Authorization': `Bearer ${token}`
+        };
+
+        const currentCodeLabel = document.getElementById('currentCodeLabel');
+        const copyCurrentCodeBtn = document.getElementById('copyCurrentCodeBtn');
+        const codeNavigatorInput = document.getElementById('codeNavigatorInput');
+        const codeNavigatorBtn = document.getElementById('codeNavigatorBtn');
+        const courseTitleEl = document.getElementById('courseTitle');
+        const courseDescriptionEl = document.getElementById('courseDescription');
+        const courseMetaEl = document.getElementById('courseMeta');
+        const courseContentTextEl = document.getElementById('courseContentText');
+        const courseTopicsListEl = document.getElementById('courseTopicsList');
+        const materialsListEl = document.getElementById('materialsList');
+        const pendingEnrollmentsEl = document.getElementById('pendingEnrollments');
+        const approvedEnrollmentsEl = document.getElementById('approvedEnrollments');
+        const assignmentsListEl = document.getElementById('assignmentsList');
+        const gradingListEl = document.getElementById('gradingList');
+
+        const courseSwitcher = document.getElementById('courseSwitcher');
+        const courseSwitcherWrapper = courseSwitcher ? courseSwitcher.parentElement : null;
+        let teacherCoursesCache = [];
+        const videoForm = document.getElementById('videoForm');
+        const documentForm = document.getElementById('documentForm');
+        const assignmentForm = document.getElementById('assignmentForm');
+
+        async function fetchCourseDetail() {
+            const response = await fetch(`${API_BASE}/courses/${courseId}/teacher`, {
+                headers: authHeaders
+            });
+            if (!response.ok) {
+                throw new Error('No se pudo obtener la información del curso');
+            }
+            return response.json();
+        }
+
+        async function populateCourseSwitcher() {
+            if (!courseSwitcher) return;
+            try {
+                const response = await fetch(`${API_BASE}/courses/teacher`, { headers: authHeaders });
+                if (!response.ok) throw new Error('No se pudieron obtener los cursos');
+                const courses = await response.json();
+                teacherCoursesCache = courses;
+                if (!courses.length) {
+                    if (courseSwitcherWrapper) courseSwitcherWrapper.style.display = 'none';
+                    return;
+                }
+                courseSwitcher.innerHTML = courses
+                    .map(course => `<option value="${course.id}">${course.title}</option>`)
+                    .join('');
+                if (courseId) {
+                    courseSwitcher.value = courseId;
+                }
+                courseSwitcher.addEventListener('change', () => {
+                    const selected = courseSwitcher.value;
+                    if (selected && selected !== courseId) {
+                        window.location.href = `./clase.html?courseId=${selected}`;
+                    }
+                });
+                setupCodeNavigator();
+            } catch (error) {
+                console.error(error);
+                if (courseSwitcherWrapper) courseSwitcherWrapper.style.display = 'none';
+            }
+        }
+
+        function setupCodeNavigator() {
+            if (!codeNavigatorBtn || !codeNavigatorInput) return;
+            const goToCode = () => {
+                const code = codeNavigatorInput.value.trim().toUpperCase();
+                if (!code || code.length < 4) {
+                    alert('Ingresa un código válido.');
+                    return;
+                }
+                const match = teacherCoursesCache.find(course => (course.joinCode || '').toUpperCase() === code);
+                if (!match) {
+                    alert('No se encontró un curso con ese código.');
+                    return;
+                }
+                window.location.href = `./clase.html?courseId=${match.id}`;
+            };
+            codeNavigatorBtn.addEventListener('click', goToCode);
+            codeNavigatorInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    goToCode();
+                }
+            });
+        }
+
+        function renderCourseOverview(course) {
+            if (currentCodeLabel) {
+                currentCodeLabel.textContent = `Código actual: ${course.joinCode}`;
+            }
+            if (copyCurrentCodeBtn) {
+                copyCurrentCodeBtn.dataset.code = course.joinCode || '';
+            }
+            courseTitleEl.textContent = course.title;
+            courseDescriptionEl.textContent = course.description;
+            courseMetaEl.innerHTML = `
+                <span class="label-inline">📂 ${course.category}</span>
+                <span class="label-inline">⏱️ ${course.durationMinutes} minutos</span>
+                <span class="label-inline">👤 ${course.teacherName || ''}</span>
+            `;
+        }
+
+        function renderCourseContent(course) {
+            if (courseContentTextEl) {
+                const text = (course.content && course.content.trim())
+                    ? course.content.trim().replace(/\n/g, '<br>')
+                    : 'Todavía no has agregado el contenido detallado de este curso.';
+                courseContentTextEl.innerHTML = text;
+            }
+            if (courseTopicsListEl) {
+                const topics = Array.isArray(course.topics) ? course.topics : [];
+                if (!topics.length) {
+                    courseTopicsListEl.innerHTML = '<li class="empty-state" style="color: var(--text-secondary);">Sin temas registrados.</li>';
+                } else {
+                    courseTopicsListEl.innerHTML = topics
+                        .map(topic => `<li class="topic-pill">${topic}</li>`)
+                        .join('');
+                }
+            }
+        }
+
+        function renderMaterials(materials) {
+            materialsListEl.innerHTML = '';
+            if (!materials.length) {
+                materialsListEl.innerHTML = '<p class="empty-state">Aún no has agregado materiales.</p>';
+                return;
+            }
+
+            materials.forEach((material) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+
+                const header = document.createElement('div');
+                header.style.display = 'flex';
+                header.style.justifyContent = 'space-between';
+                header.style.alignItems = 'center';
+                header.innerHTML = `
+                    <strong>${material.title}</strong>
+                    <span class="badge">${material.type === 'VIDEO_LINK' ? 'Video' : 'Documento'}</span>
+                `;
+                item.appendChild(header);
+
+            const description = document.createElement('p');
+            description.style.color = 'var(--text-secondary)';
+            description.textContent = material.description || 'Sin descripción';
+            item.appendChild(description);
+
+                if (material.type === 'VIDEO_LINK' && material.resourceUrl) {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = material.resourceUrl;
+                    iframe.allowFullscreen = true;
+                    item.appendChild(iframe);
+
+                    const link = document.createElement('a');
+                    link.href = material.resourceUrl;
+                    link.target = '_blank';
+                    link.textContent = 'Abrir en nueva pestaña';
+                    item.appendChild(link);
+                } else if (material.downloadUrl) {
+                    const link = document.createElement('a');
+                    link.href = material.downloadUrl;
+                    link.textContent = 'Descargar documento';
+                    item.appendChild(link);
+                }
+
+                const actions = document.createElement('div');
+                actions.className = 'material-actions';
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger';
+                deleteBtn.textContent = 'Eliminar';
+                deleteBtn.addEventListener('click', async () => {
+                    const confirmed = confirm('¿Deseas eliminar este material?');
+                    if (!confirmed) return;
+                    try {
+                        const response = await fetch(`${API_BASE}/courses/${courseId}/materials/${material.id}`, {
+                            method: 'DELETE',
+                            headers: authHeaders
+                        });
+                        if (!response.ok) {
+                            const data = await response.json().catch(() => ({}));
+                            alert('❌ ' + (data.message || 'No se pudo eliminar el material'));
+                            return;
+                        }
+                        await loadCourse();
+                    } catch (error) {
+                        console.error(error);
+                        alert('❌ Error eliminando el material.');
+                    }
+                });
+                actions.appendChild(deleteBtn);
+                item.appendChild(actions);
+
+                materialsListEl.appendChild(item);
+            });
+        }
+
+        function renderEnrollments(pending, approved) {
+            pendingEnrollmentsEl.innerHTML = '';
+            approvedEnrollmentsEl.innerHTML = '';
+
+            if (!pending.length) {
+                pendingEnrollmentsEl.innerHTML = '<p class="empty-state">No hay solicitudes pendientes.</p>';
+            } else {
+                pending.forEach((enrollment) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <strong>${enrollment.studentName || enrollment.studentEmail}</strong>
+                        <span class="label-inline">${enrollment.studentEmail}</span>
+                        <div class="enrollment-actions">
+                            <button class="btn btn-primary" data-action="approve" data-id="${enrollment.id}">Aprobar</button>
+                            <button class="btn btn-secondary" data-action="reject" data-id="${enrollment.id}">Rechazar</button>
+                        </div>
+                    `;
+                    pendingEnrollmentsEl.appendChild(item);
+                });
+            }
+
+            if (!approved.length) {
+                approvedEnrollmentsEl.innerHTML = '<p class="empty-state">No hay estudiantes inscritos.</p>';
+            } else {
+                approved.forEach((enrollment) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <strong>${enrollment.studentName || enrollment.studentEmail}</strong>
+                        <span class="label-inline">${enrollment.studentEmail}</span>
+                        <div class="enrollment-actions">
+                            <button class="btn btn-danger" data-action="remove" data-id="${enrollment.id}">Eliminar del curso</button>
+                        </div>
+                    `;
+                    approvedEnrollmentsEl.appendChild(item);
+                });
+            }
+        }
+
+        function formatDateForInput(value) {
+            if (!value) return '';
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return '';
+            const pad = (num) => String(num).padStart(2, '0');
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        }
+
+        async function persistGrade(assignmentId, submissionId, payload) {
+            const response = await fetch(`${API_BASE}/courses/assignments/${assignmentId}/submissions/${submissionId}/grade`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...authHeaders
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                alert('❌ ' + (data.message || 'No se pudo guardar la nota'));
+                throw new Error(data.message || 'Error al guardar la nota');
+            }
+        }
+
+        function renderGradingCenter(assignments) {
+            if (!gradingListEl) return;
+            gradingListEl.innerHTML = '';
+            const submissions = [];
+
+            assignments.forEach((assignment) => {
+                assignment.submissions.forEach((submission) => {
+                    submissions.push({
+                        assignmentId: assignment.id,
+                        assignmentTitle: assignment.title,
+                        submissionId: submission.id,
+                        studentName: submission.studentName || submission.studentEmail,
+                        submittedAt: submission.submittedAt,
+                        fileUrl: submission.fileUrl,
+                        grade: submission.grade,
+                        feedback: submission.feedback || ''
+                    });
+                });
+            });
+
+            const pending = submissions.filter((submission) => submission.grade === null || submission.grade === undefined);
+            const toDisplay = pending.length ? pending : submissions;
+
+            if (!toDisplay.length) {
+                gradingListEl.innerHTML = '<p class="empty-state">Aún no tienes entregas para calificar.</p>';
+                return;
+            }
+
+            toDisplay
+                .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt))
+                .forEach((submission) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem;">
+                            <div>
+                                <strong>${submission.studentName}</strong>
+                                <p class="label-inline">Entrega: ${new Date(submission.submittedAt).toLocaleString()}</p>
+                            </div>
+                            <span class="badge">Tarea: ${submission.assignmentTitle}</span>
+                        </div>
+                        ${submission.fileUrl ? `<a href="${submission.fileUrl}" target="_blank" class="btn btn-secondary" style="width: fit-content;">Ver archivo</a>` : ''}
+                    `;
+
+                    const gradeForm = document.createElement('form');
+                    gradeForm.innerHTML = `
+                        <input type="number" name="grade" min="0" max="100" step="0.1" value="${submission.grade ?? ''}" placeholder="Nota" required style="width:120px;">
+                        <input type="text" name="feedback" placeholder="Retroalimentación" value="${submission.feedback}" style="flex:1;">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    `;
+
+                    gradeForm.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+                        const formData = new FormData(gradeForm);
+                        const payload = {
+                            grade: Number(formData.get('grade')),
+                            feedback: formData.get('feedback') || null
+                        };
+                        try {
+                            await persistGrade(submission.assignmentId, submission.submissionId, payload);
+                            await loadCourse();
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    });
+
+                    item.appendChild(gradeForm);
+                    gradingListEl.appendChild(item);
+                });
+        }
+
+        function renderAssignments(assignments) {
+            assignmentsListEl.innerHTML = '';
+            if (!assignments.length) {
+                assignmentsListEl.innerHTML = '<p class="empty-state">Todavía no publicaste tareas.</p>';
+                return;
+            }
+
+            assignments.forEach((assignment) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+
+                const header = document.createElement('div');
+                header.style.display = 'flex';
+                header.style.justifyContent = 'space-between';
+                header.style.alignItems = 'center';
+                header.innerHTML = `
+                    <strong>${assignment.title}</strong>
+                    <span class="label-inline">Fecha límite: ${assignment.dueDate ? new Date(assignment.dueDate).toLocaleString() : 'No definida'}</span>
+                `;
+                item.appendChild(header);
+
+                const description = document.createElement('p');
+                description.style.color = 'var(--text-secondary)';
+                description.textContent = assignment.description;
+                item.appendChild(description);
+
+                const editForm = document.createElement('form');
+                editForm.className = 'section';
+                editForm.innerHTML = `
+                    <div>
+                        <label>Título</label>
+                        <input type="text" name="title" value="${assignment.title}">
+                    </div>
+                    <div>
+                        <label>Descripción</label>
+                        <textarea name="description">${assignment.description}</textarea>
+                    </div>
+                    <div>
+                        <label>Fecha límite</label>
+                        <input type="datetime-local" name="dueDate" value="${formatDateForInput(assignment.dueDate)}">
+                    </div>
+                    <button class="btn btn-secondary" type="submit">Actualizar tarea</button>
+                `;
+
+                editForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(editForm);
+                    const payload = {
+                        title: formData.get('title').trim(),
+                        description: formData.get('description').trim(),
+                        dueDate: formData.get('dueDate') ? new Date(formData.get('dueDate')).toISOString() : null
+                    };
+
+                    const response = await fetch(`${API_BASE}/courses/assignments/${assignment.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...authHeaders
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json().catch(() => ({}));
+                        alert('❌ ' + (data.message || 'No se pudo actualizar la tarea'));
+                        return;
+                    }
+
+                    await loadCourse();
+                });
+
+                item.appendChild(editForm);
+
+                const submissionsContainer = document.createElement('div');
+                submissionsContainer.className = 'submissions';
+                const submissionsTitle = document.createElement('h4');
+                submissionsTitle.textContent = 'Entregas';
+                submissionsContainer.appendChild(submissionsTitle);
+
+                if (!assignment.submissions.length) {
+                    const empty = document.createElement('p');
+                    empty.className = 'empty-state';
+                    empty.textContent = 'Sin entregas registradas.';
+                    submissionsContainer.appendChild(empty);
+                } else {
+                    assignment.submissions.forEach((submission) => {
+                        const submissionCard = document.createElement('div');
+                        submissionCard.className = 'submission-card';
+                        submissionCard.innerHTML = `
+                            <strong>${submission.studentName || submission.studentEmail}</strong>
+                            <span class="label-inline">Enviado: ${new Date(submission.submittedAt).toLocaleString()}</span>
+                            ${submission.fileUrl ? `<a href="${submission.fileUrl}" target="_blank" class="btn btn-secondary" style="width: fit-content;">Descargar entrega</a>` : ''}
+                        `;
+
+                        const gradeForm = document.createElement('form');
+                        gradeForm.innerHTML = `
+                            <input type="number" name="grade" min="0" max="100" step="0.1" value="${submission.grade ?? ''}" placeholder="Nota">
+                            <input type="text" name="feedback" placeholder="Retroalimentación" value="${submission.feedback ?? ''}" style="flex:1;">
+                            <button type="submit" class="btn btn-primary">Guardar nota</button>
+                        `;
+
+                        gradeForm.addEventListener('submit', async (event) => {
+                            event.preventDefault();
+                            const formData = new FormData(gradeForm);
+                            const payload = {
+                                grade: formData.get('grade') ? Number(formData.get('grade')) : null,
+                                feedback: formData.get('feedback') || null
+                            };
+                            try {
+                                await persistGrade(assignment.id, submission.id, payload);
+                                await loadCourse();
+                            } catch (error) {
+                                console.error(error);
+                            }
+                        });
+
+                        submissionCard.appendChild(gradeForm);
+                        submissionsContainer.appendChild(submissionCard);
+                    });
+                }
+
+                item.appendChild(submissionsContainer);
+                assignmentsListEl.appendChild(item);
+            });
+        }
+
+        async function loadCourse() {
+            try {
+                const detail = await fetchCourseDetail();
+                renderCourseOverview(detail.course);
+                renderCourseContent(detail.course);
+                renderMaterials(detail.materials);
+                renderEnrollments(detail.pendingEnrollments, detail.approvedEnrollments);
+                renderAssignments(detail.assignments);
+                renderGradingCenter(detail.assignments);
+            } catch (error) {
+                console.error(error);
+                alert('❌ No se pudo cargar la información de la clase.');
+                window.location.href = '../teacher/crear-curso.html';
+            }
+        }
+
+        videoForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const title = document.getElementById('videoTitle').value.trim();
+            const description = document.getElementById('videoDescription').value.trim();
+            const url = document.getElementById('videoUrl').value.trim();
+
+            const metadata = {
+                type: 'VIDEO_LINK',
+                title,
+                description,
+                resourceUrl: url
+            };
+
+            const formData = new FormData();
+            formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+
+            const response = await fetch(`${API_BASE}/courses/${courseId}/materials`, {
+                method: 'POST',
+                headers: authHeaders,
+                body: formData
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                alert('❌ ' + (data.message || 'No se pudo agregar el video'));
+                return;
+            }
+
+            videoForm.reset();
+            await loadCourse();
+        });
+
+        documentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const title = document.getElementById('documentTitle').value.trim();
+            const description = document.getElementById('documentDescription').value.trim();
+            const file = document.getElementById('documentFile').files[0];
+
+            if (!file) {
+                alert('Selecciona un archivo para subir.');
+                return;
+            }
+
+            const metadata = {
+                type: 'DOCUMENT_FILE',
+                title,
+                description
+            };
+
+            const formData = new FormData();
+            formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+            formData.append('file', file);
+
+            const response = await fetch(`${API_BASE}/courses/${courseId}/materials`, {
+                method: 'POST',
+                headers: authHeaders,
+                body: formData
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                alert('❌ ' + (data.message || 'No se pudo subir el documento'));
+                return;
+            }
+
+            documentForm.reset();
+            await loadCourse();
+        });
+
+        assignmentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const payload = {
+                title: document.getElementById('assignmentTitle').value.trim(),
+                description: document.getElementById('assignmentDescription').value.trim(),
+                dueDate: document.getElementById('assignmentDueDate').value
+                    ? new Date(document.getElementById('assignmentDueDate').value).toISOString()
+                    : null
+            };
+
+            const response = await fetch(`${API_BASE}/courses/${courseId}/assignments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...authHeaders
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                alert('❌ ' + (data.message || 'No se pudo crear la tarea'));
+                return;
+            }
+
+            assignmentForm.reset();
+            await loadCourse();
+        });
+
+        pendingEnrollmentsEl.addEventListener('click', async (event) => {
+            const action = event.target.dataset.action;
+            const id = event.target.dataset.id;
+            if (!action || !id) return;
+
+            const endpoint = action === 'approve' ? 'approve' : 'reject';
+            const response = await fetch(`${API_BASE}/courses/enrollments/${id}/${endpoint}`, {
+                method: 'POST',
+                headers: authHeaders
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                alert('❌ ' + (data.message || 'No se pudo actualizar la solicitud'));
+                return;
+            }
+
+            await loadCourse();
+        });
+
+        approvedEnrollmentsEl.addEventListener('click', async (event) => {
+            const action = event.target.dataset.action;
+            const id = event.target.dataset.id;
+            if (action !== 'remove' || !id) return;
+
+            const confirmed = confirm('¿Deseas eliminar a este estudiante del curso?');
+            if (!confirmed) return;
+
+            const response = await fetch(`${API_BASE}/courses/enrollments/${id}`, {
+                method: 'DELETE',
+                headers: authHeaders
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                alert('❌ ' + (data.message || 'No se pudo eliminar al estudiante'));
+                return;
+            }
+
+            await loadCourse();
+        });
+
+        populateCourseSwitcher();
+        loadCourse();
+    </script>
+</body>
+</html>
+>>>>>>> dfff0bb (Estudiante ya puede tener mas clases)
        

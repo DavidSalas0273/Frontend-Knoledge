@@ -3,6 +3,34 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+<<<<<<< HEAD
+  "engines": {
+    "node": ">=20 <21",
+    "npm": ">=9"
+  },
+=======
+<<<<<<< HEAD
+>>>>>>> dfff0bb (Estudiante ya puede tener mas clases)
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "rollup": "^4.21.0",
+    "typescript": "~5.9.3",
+<<<<<<< HEAD
+    "vite": "^5.4.10"
+=======
+    "vite": "npm:rolldown-vite@7.1.14"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.14"
+=======
   "engines": {
     "node": ">=20 <21",
     "npm": ">=9"
@@ -20,6 +48,8 @@
     "rollup": "^4.21.0",
     "typescript": "~5.9.3",
     "vite": "^5.4.10"
+>>>>>>> 9332ab9 (Se suben los cambios de integracion de clase para el estudiante)
+>>>>>>> dfff0bb (Estudiante ya puede tener mas clases)
   },
   "dependencies": {
     "react": "^19.2.0",
