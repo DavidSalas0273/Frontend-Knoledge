@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Knowledge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4c84ff;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --bg-dark: #0a0e1a;
+            --bg-card: #151b2e;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(76, 132, 255, 0.1);
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(76, 132, 255, 0.3);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(76, 132, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                var(--bg-dark);
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 60%; left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1s; }
+        .particle:nth-child(5) { top: 30%; left: 50%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(40px, -40px) scale(1.2); opacity: 0.6; }
+        }
+
+        .auth-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Welcome Section */
+        .auth-welcome {
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(76, 132, 255, 0.15);
+            border: 1px solid rgba(76, 132, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .auth-welcome h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-welcome p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(76, 132, 255, 0.05);
+            border: 1px solid rgba(76, 132, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(76, 132, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Form Box */
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(76, 132, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInRight 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+            max-width: 480px;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .auth-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(76, 132, 255, 0.05), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .auth-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-box h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Form Styles */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            font-size: 1.2rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.5rem;
+            background: rgba(76, 132, 255, 0.05);
+            border: 2px solid rgba(76, 132, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(76, 132, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(76, 132, 255, 0.1);
+        }
+
+        .input-with-icon input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Remember & Forgot */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -0.5rem;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(76, 132, 255, 0.3);
+            border-radius: 6px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .forgot-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(76, 132, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-social {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-social:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-social::before {
+            content: '🔐';
+            font-size: 1.2rem;
+        }
+
+        /* Divider */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(76, 132, 255, 0.2);
+        }
+
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+
+        /* Footer */
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        /* Loading State */
+        .btn-primary.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-primary.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 0.5rem;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .auth-welcome {
+                text-align: center;
+            }
+
+            .auth-box {
+                max-width: 100%;
+            }
+
+            .stats-grid {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .auth-page {
+                padding: 100px 1rem 2rem;
+            }
+
+            .auth-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-welcome h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">🎓</div>
+                <span>Knowledge</span>
+            </a>
+            <a href="./registro.html" class="nav-link">Crear cuenta</a>
+        </div>
+    </header>
+
+    <!-- Particles Background -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="auth-page">
+        <div class="auth-container">
+            <!-- Welcome Section -->
+            <div class="auth-welcome">
+                <div class="welcome-badge">
+                    👋 Bienvenido de vuelta
+                </div>
+                <h1>Continúa tu aprendizaje</h1>
+                <p>Accede a tu cuenta para continuar explorando cursos increíbles, ver tu progreso y recibir recomendaciones personalizadas con IA.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">500K+</span>
+                        <span class="stat-label">Estudiantes activos</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Cursos disponibles</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfacción</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1.2M+</span>
+                        <span class="stat-label">Lecciones completadas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-box">
+                <h2>Iniciar Sesión</h2>
+                <p class="auth-subtitle">Accede a tu cuenta de Knowledge</p>
+
+                <!-- Alert Messages -->
+                <div id="alertError" class="alert alert-error">
+                    <span>❌</span>
+                    <span id="errorMessage"></span>
+                </div>
+                <div id="alertSuccess" class="alert alert-success">
+                    <span>✅</span>
+                    <span id="successMessage"></span>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com" autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" name="password" required placeholder="Tu contraseña" autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">Recordarme</span>
+                        </label>
+                        <a href="#" class="forgot-link" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>O continúa con</span>
+                </div>
+
+                <button class="btn btn-social" id="googleBtn">
+                    Continuar con Google
+                </button>
+
+                <p class="auth-footer">
+                    ¿No tienes una cuenta? <a href="./registro.html">Regístrate gratis</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    (function () {
+        const form = document.getElementById('loginForm');
+        if (!form) {
+            console.error('No se encontró el formulario de login.');
+            return;
+        }
+
+        const alertError = document.getElementById('alertError');
+        const alertSuccess = document.getElementById('alertSuccess');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const forgotPassword = document.getElementById('forgotPassword');
+        const googleBtn = document.getElementById('googleBtn');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        function hideAlerts() {
+            [alertError, alertSuccess].forEach((alert) => {
+                if (alert) {
+                    alert.classList.remove('show');
+                }
+            });
+        }
+
+        function showAlert(type, message) {
+            const target = type === 'error' ? alertError : alertSuccess;
+            const messageContainer = type === 'error' ? errorMessage : successMessage;
+
+            if (!target || !messageContainer) {
+                console.warn('No se pudo mostrar el mensaje correspondiente.');
+                return;
+            }
+
+            target.classList.add('show');
+            messageContainer.textContent = message;
+
+            const sibling = type === 'error' ? alertSuccess : alertError;
+            if (sibling) {
+                sibling.classList.remove('show');
+            }
+        }
+
+        function resetButton(button) {
+            if (!button) {
+                return;
+            }
+            button.classList.remove('loading');
+            button.textContent = 'Iniciar Sesión';
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            hideAlerts();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.classList.add('loading');
+                submitButton.textContent = 'Iniciando sesión...';
+            }
+
+            const email = emailInput ? emailInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value : '';
+
+            if (!email || !password) {
+                showAlert('error', '❌ Completa todos los campos.');
+                resetButton(submitButton);
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8081/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const body = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    const message = body && body.message ? body.message : 'Usuario o contraseña incorrectos';
+                    showAlert('error', `❌ ${message}`);
+                    resetButton(submitButton);
+                    return;
+                }
+
+                const usuario = body && body.user ? body.user : null;
+                const token = body && body.token ? body.token : null;
+
+                if (usuario && usuario.email) {
+                    localStorage.setItem('email', usuario.email);
+                }
+                if (usuario && usuario.role) {
+                    localStorage.setItem('role', usuario.role);
+                    localStorage.setItem('userRole', usuario.role);
+                }
+                if (usuario && usuario.id) {
+                    localStorage.setItem('userId', usuario.id);
+                }
+                if (usuario && usuario.name) {
+                    localStorage.setItem('userName', usuario.name);
+                }
+                if (token) {
+                    localStorage.setItem('token', token);
+                }
+
+                const successMessageText = body && body.message ? body.message : 'Inicio de sesión exitoso';
+                showAlert('success', `✅ ${successMessageText}`);
+                resetButton(submitButton);
+
+                setTimeout(() => {
+                    const role = usuario && usuario.role ? usuario.role : 'student';
+                    if (role === 'teacher') {
+                        window.location.href = './teacher/mis-clases.html';
+                    } else {
+                        window.location.href = './student/buscar-clase.html';
+                    }
+                }, 1000);
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+                showAlert('error', '❌ Error de conexión con el servidor.');
+                resetButton(form.querySelector('button[type="submit"]'));
+            }
+        });
+
+        if (forgotPassword) {
+            forgotPassword.addEventListener('click', (event) => {
+                event.preventDefault();
+                showAlert('success', '📩 En breve recibirás un correo con instrucciones.');
+            });
+        }
+
+        if (googleBtn) {
+            googleBtn.addEventListener('click', () => {
+                showAlert('error', '⚠️ Funcionalidad de Google Login en desarrollo.');
+            });
+        }
+    })();
+    </script>
+</body>
+</html>

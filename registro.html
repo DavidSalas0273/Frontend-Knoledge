@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Knowledge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4c84ff;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --bg-dark: #0a0e1a;
+            --bg-card: #151b2e;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(76, 132, 255, 0.1);
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(76, 132, 255, 0.3);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Main Content */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 4rem;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(76, 132, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                var(--bg-dark);
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 60%; left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+            50% { transform: translate(30px, -30px); opacity: 0.6; }
+        }
+
+        .auth-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Welcome Section */
+        .auth-welcome {
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(76, 132, 255, 0.15);
+            border: 1px solid rgba(76, 132, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .auth-welcome h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-welcome p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .welcome-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(76, 132, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-feature:hover {
+            background: rgba(76, 132, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Form Box */
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(76, 132, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInRight 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .auth-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(76, 132, 255, 0.05), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .auth-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-box h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .auth-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Role Selector */
+        .role-selector {
+            margin-bottom: 2rem;
+        }
+
+        .role-selector h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .role-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .role-option {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .role-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .role-content {
+            padding: 1.5rem;
+            border: 2px solid rgba(76, 132, 255, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: rgba(76, 132, 255, 0.03);
+        }
+
+        .role-option input[type="radio"]:checked + .role-content {
+            border-color: var(--primary);
+            background: rgba(76, 132, 255, 0.15);
+            box-shadow: 0 8px 24px rgba(76, 132, 255, 0.2);
+        }
+
+        .role-option:hover .role-content {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .role-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .role-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary);
+        }
+
+        .role-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Form Styles */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            font-size: 1.2rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.5rem;
+            background: rgba(76, 132, 255, 0.05);
+            border: 2px solid rgba(76, 132, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(76, 132, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(76, 132, 255, 0.1);
+        }
+
+        .input-with-icon input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Password Strength */
+        .password-strength {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .password-strength.active {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: rgba(76, 132, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .strength-fill.weak { 
+            width: 33%; 
+            background: #ef4444; 
+        }
+        .strength-fill.medium { 
+            width: 66%; 
+            background: #f59e0b; 
+        }
+        .strength-fill.strong { 
+            width: 100%; 
+            background: #10b981; 
+        }
+
+        .strength-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Terms Checkbox */
+        .terms {
+            margin: 0.5rem 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(76, 132, 255, 0.3);
+            border-radius: 6px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .terms-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(76, 132, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-social {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-social:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-social::before {
+            content: '🔐';
+            font-size: 1.2rem;
+        }
+
+        /* Divider */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(76, 132, 255, 0.2);
+        }
+
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+
+        /* Footer */
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .auth-welcome {
+                text-align: center;
+            }
+
+            .welcome-features {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .auth-page {
+                padding: 100px 1rem 2rem;
+            }
+
+            .auth-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-welcome h1 {
+                font-size: 2.5rem;
+            }
+
+            .role-options {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Loading State */
+        .btn-primary.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-primary.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 0.5rem;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">🎓</div>
+                <span>Knowledge</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Particles Background -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="auth-page">
+        <div class="auth-container">
+            <!-- Welcome Section -->
+            <div class="auth-welcome">
+                <div class="welcome-badge">
+                    ✨ Únete a la comunidad
+                </div>
+                <h1>¡Bienvenido a Knowledge!</h1>
+                <p>La plataforma de aprendizaje inteligente que transformará tu futuro. Accede a contenido de calidad, asistencia con IA y metodologías innovadoras.</p>
+                
+                <ul class="welcome-features">
+                    <li class="welcome-feature">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">Recomendaciones personalizadas con IA</div>
+                    </li>
+                    <li class="welcome-feature">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-text">Tutor inteligente 24/7 para resolver dudas</div>
+                    </li>
+                    <li class="welcome-feature">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-text">Más de 150+ cursos de alta calidad</div>
+                    </li>
+                    <li class="welcome-feature">
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-text">Certificados verificables al completar</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="auth-box">
+                <h2>Crear una cuenta</h2>
+                <p class="auth-subtitle">Únete a más de 500,000 estudiantes</p>
+
+                <div id="alertError" class="alert alert-error">
+                    <span>❌</span>
+                    <span id="errorMessage"></span>
+                </div>
+                <div id="alertSuccess" class="alert alert-success">
+                    <span>✅</span>
+                    <span id="successMessage"></span>
+                </div>
+
+                <!-- Role Selector -->
+                <div class="role-selector">
+                    <h3>¿Cómo quieres participar?</h3>
+                    <div class="role-options">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="student" checked>
+                            <div class="role-content">
+                                <span class="role-icon">👨‍🎓</span>
+                                <h4>Estudiante</h4>
+                                <p>Aprende y crece</p>
+                            </div>
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="teacher">
+                            <div class="role-content">
+                                <span class="role-icon">👨‍🏫</span>
+                                <h4>Profesor</h4>
+                                <p>Comparte conocimiento</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="name">Nombre completo</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" name="password" required placeholder="Mínimo 8 caracteres, 1 mayúscula, 1 número">
+                        </div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <span class="strength-text" id="strengthText"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar contraseña</label>
+                        <div class="input-with-icon">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirma tu contraseña">
+                        </div>
+                    </div>
+
+                    <div class="form-group terms">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            <span class="terms-text">
+                                Acepto los <a href="#">términos y condiciones</a> y la <a href="#">política de privacidad</a>
+                            </span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Crear mi cuenta</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>O regístrate con</span>
+                </div>
+
+                <button class="btn btn-social" id="googleBtn">
+                    Continuar con Google
+                </button>
+
+                <p class="auth-footer">
+                    ¿Ya tienes una cuenta? <a href="./login.html">Inicia sesión</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script>
+    (function () {
+        const form = document.getElementById('registerForm');
+        if (!form) {
+            console.error('No se encontró el formulario de registro.');
+            return;
+        }
+
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const termsInput = document.getElementById('terms');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        const alertError = document.getElementById('alertError');
+        const alertSuccess = document.getElementById('alertSuccess');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const googleBtn = document.getElementById('googleBtn');
+        function hideAlerts() {
+            [alertError, alertSuccess].forEach((alert) => {
+                if (alert) {
+                    alert.classList.remove('show');
+                }
+            });
+        }
+
+        function showAlert(type, message) {
+            const target = type === 'error' ? alertError : alertSuccess;
+            const messageContainer = type === 'error' ? errorMessage : successMessage;
+
+            if (!target || !messageContainer) {
+                console.warn('No se pudo mostrar el mensaje:', message);
+                return;
+            }
+
+            target.classList.add('show');
+            messageContainer.textContent = message;
+
+            const sibling = type === 'error' ? alertSuccess : alertError;
+            if (sibling) {
+                sibling.classList.remove('show');
+            }
+        }
+
+        function resetButton(button) {
+            if (!button) {
+                return;
+            }
+            button.classList.remove('loading');
+            button.textContent = 'Crear mi cuenta';
+        }
+
+        function evaluatePasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 8) score += 1;
+            if (/[A-Z]/.test(password)) score += 1;
+            if (/[0-9]/.test(password)) score += 1;
+            if (/[^A-Za-z0-9]/.test(password)) score += 1;
+            return score;
+        }
+
+        function updateStrength(password) {
+            if (!strengthFill || !strengthText) {
+                return;
+            }
+            const score = evaluatePasswordStrength(password);
+            const widths = ['10%', '35%', '65%', '100%'];
+
+            strengthFill.style.width = widths[Math.max(score - 1, 0)] || '10%';
+
+            if (score <= 1) {
+                strengthFill.style.background = '#ef4444';
+                strengthText.textContent = 'Contraseña muy débil';
+            } else if (score === 2) {
+                strengthFill.style.background = '#f59e0b';
+                strengthText.textContent = 'Contraseña débil';
+            } else if (score === 3) {
+                strengthFill.style.background = '#10b981';
+                strengthText.textContent = 'Contraseña segura';
+            } else {
+                strengthFill.style.background = '#22d3ee';
+                strengthText.textContent = 'Contraseña muy segura';
+            }
+        }
+
+        if (passwordInput) {
+            passwordInput.addEventListener('input', (event) => {
+                updateStrength(event.target.value);
+            });
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            hideAlerts();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.classList.add('loading');
+                submitButton.textContent = 'Creando cuenta...';
+            }
+
+            const nombre = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value : '';
+            const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+            const roleInput = document.querySelector('input[name="role"]:checked');
+            const role = roleInput ? roleInput.value : 'student';
+            const termsAccepted = termsInput ? termsInput.checked : false;
+
+            if (!nombre || !email || !password) {
+                showAlert('error', '❌ Completa todos los campos obligatorios.');
+                resetButton(submitButton);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showAlert('error', '❌ Las contraseñas no coinciden.');
+                resetButton(submitButton);
+                return;
+            }
+
+            if (!termsAccepted) {
+                showAlert('error', '⚠️ Debes aceptar los términos y condiciones.');
+                resetButton(submitButton);
+                return;
+            }
+
+            const payload = {
+                name: nombre,
+                email,
+                password,
+                role
+            };
+
+            try {
+                const response = await fetch('http://localhost:8081/api/v1/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const body = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    const message = body && body.message ? body.message : 'No se pudo completar el registro.';
+                    showAlert('error', `❌ ${message}`);
+                    resetButton(submitButton);
+                    return;
+                }
+
+                showAlert('success', body && body.message ? `✅ ${body.message}` : '✅ Registrado correctamente');
+                resetButton(submitButton);
+                form.reset();
+                updateStrength('');
+
+                setTimeout(() => {
+                    window.location.href = './login.html';
+                }, 1000);
+            } catch (error) {
+                console.error('Error al registrar usuario:', error);
+                showAlert('error', '❌ Error de conexión con el servidor.');
+                resetButton(submitButton);
+            }
+        });
+
+        if (googleBtn) {
+            googleBtn.addEventListener('click', () => {
+                showAlert('error', '⚠️ El registro con Google estará disponible muy pronto.');
+            });
+        }
+
+        updateStrength(passwordInput ? passwordInput.value : '');
+    })();
+    </script>
+</body>
+</html>

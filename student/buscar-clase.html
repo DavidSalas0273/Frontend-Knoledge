@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Clases - Knowledge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #4c84ff;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0a0e1a;
+            --bg-card: #151b2e;
+            --bg-hover: #1a2238;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border: rgba(76, 132, 255, 0.15);
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .header {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .main-container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .page-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+        .actions-bar {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(76, 132, 255, 0.35); }
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+        .btn-outline:hover { border-color: var(--primary); background: rgba(76, 132, 255, 0.12); }
+        .search-box { flex: 1; max-width: 400px; position: relative; }
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(76, 132, 255, 0.15); }
+        .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+        }
+        .tab.active { color: var(--primary); }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: -2px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .class-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .class-card:hover { transform: translateY(-8px); box-shadow: 0 18px 36px rgba(0,0,0,0.35); border-color: var(--primary); }
+        .class-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+        }
+        .class-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+        .class-content { padding: 1.6rem; }
+        .class-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .class-teacher { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; display: flex; gap: 0.5rem; align-items: center; }
+        .class-meta { display: flex; gap: 1rem; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+        .class-actions { display: flex; gap: 0.8rem; }
+        .class-btn { flex: 1; padding: 0.8rem; border-radius: 10px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-continue { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn-view { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            z-index: 200;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 520px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--danger); transform: rotate(90deg); }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal-description { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+        .code-input-group { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .code-digit {
+            width: 55px;
+            height: 65px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--bg-dark);
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .code-digit:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(76,132,255,0.15); }
+        .divider { text-align: center; color: var(--text-secondary); margin-bottom: 1rem; }
+        .full-code-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        .full-code-row {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        .full-code-row .btn {
+            flex-shrink: 0;
+            height: 56px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-message {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid var(--danger);
+            border-radius: 10px;
+            color: var(--danger);
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
+            display: none;
+            text-align: center;
+        }
+        .error-message.show { display: block; }
+        .success-message {
+            background: rgba(16,185,129,0.12);
+            border: 1px solid rgba(16,185,129,0.35);
+            border-radius: 10px;
+            color: #a7f3d0;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
+            display: none;
+            text-align: center;
+        }
+        .success-message.show { display: block; }
+        .btn-submit { width: 100%; justify-content: center; }
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 1rem; }
+            .main-container { padding: 1.2rem; }
+            .classes-grid { grid-template-columns: 1fr; }
+            .actions-bar { flex-direction: column; }
+            .search-box { max-width: 100%; }
+            .code-digit { width: 48px; height: 60px; }
+            .modal-content { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">🎓</div>
+                <span>Knowledge</span>
+            </a>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <div class="user-name" id="userName">Estudiante</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">Mis Clases</h1>
+            <p class="page-subtitle">Accede a tus cursos, continúa tu aprendizaje y alcanza tus objetivos</p>
+        </div>
+
+        <div class="actions-bar">
+            <button class="btn btn-primary" id="joinClassBtn">🔑 Unirme con Código</button>
+            <button class="btn btn-outline">📚 Explorar Catálogo</button>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Buscar en mis clases...">
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="all">Todas</button>
+            <button class="tab" data-tab="active">En progreso</button>
+            <button class="tab" data-tab="completed">Completadas</button>
+            <button class="tab" data-tab="saved">Guardadas</button>
+        </div>
+
+        <div class="classes-grid" id="classesGrid"></div>
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <h3>🙌 Aún no tienes clases activas</h3>
+            <p>Usa “Unirme con Código” para agregar tu primera clase.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="joinModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            <div class="modal-title">Unirme a una Clase</div>
+            <p class="modal-description">Ingresa el código compartido por tu profesor para solicitar acceso.</p>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form id="joinForm">
+                <div class="code-input-group">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                    <input type="text" class="code-digit" maxlength="1" pattern="[0-9A-Za-z]" autocomplete="off">
+                </div>
+
+                <div class="divider">o ingresa todo el código</div>
+                <div class="full-code-row">
+                    <input type="text" id="fullCodeInput" class="full-code-input" placeholder="XXXXXX" maxlength="12">
+                    <button type="button" class="btn btn-primary btn-enter" id="quickJoinBtn">Entrar</button>
+                </div>
+
+                <button type="submit" class="btn btn-outline btn-submit">Solicitar acceso</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = (() => {
+            if (window.API_URL && window.API_URL.trim()) {
+                return window.API_URL.replace(/\/$/, '');
+            }
+            const origin = window.location.origin;
+            if (origin.includes('5173')) {
+                return 'http://localhost:8081/api/v1';
+            }
+            return `${origin.replace(/\/$/, '')}/api/v1`;
+        })();
+
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        if (!token || role !== 'student') {
+            window.location.href = '../login.html';
+        }
+
+        const storedName = (localStorage.getItem('userName') || '').trim();
+        const fallbackEmail = (localStorage.getItem('email') || '').trim();
+        const displayName = storedName || fallbackEmail || 'Estudiante';
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase() || '👤';
+
+        const classesGrid = document.getElementById('classesGrid');
+        const emptyState = document.getElementById('emptyState');
+        const joinModal = document.getElementById('joinModal');
+        const joinClassBtn = document.getElementById('joinClassBtn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const joinForm = document.getElementById('joinForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const codeDigits = Array.from(document.querySelectorAll('.code-digit'));
+        const fullCodeInput = document.getElementById('fullCodeInput');
+        const quickJoinBtn = document.getElementById('quickJoinBtn');
+        const authHeaders = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
+        const openModal = () => {
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            joinModal.classList.add('active');
+            (codeDigits.find(input => !input.value) || codeDigits[0]).focus();
+        };
+
+        const closeModal = () => joinModal.classList.remove('active');
+
+        joinClassBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        joinModal.addEventListener('click', (event) => {
+            if (event.target === joinModal) closeModal();
+        });
+
+        codeDigits.forEach((input, index) => {
+            input.addEventListener('input', (event) => {
+                event.target.value = event.target.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+                if (event.target.value && codeDigits[index + 1]) {
+                    codeDigits[index + 1].focus();
+                } else if (!event.target.value && codeDigits[index - 1]) {
+                    codeDigits[index - 1].focus();
+                }
+                updateFullCode();
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Backspace' && !event.target.value && index > 0) {
+                    codeDigits[index - 1].focus();
+                }
+            });
+        });
+
+        const updateFullCode = () => {
+            const typed = codeDigits.map(input => input.value).join('');
+            fullCodeInput.value = typed;
+        };
+
+        const resolveCode = () => {
+            const digitsCode = codeDigits.map(input => input.value).join('');
+            if (digitsCode.length === codeDigits.length) {
+                return digitsCode;
+            }
+            return (fullCodeInput.value || '').trim();
+        };
+
+        const showError = (message) => {
+            errorMessage.textContent = `❌ ${message}`;
+            errorMessage.classList.add('show');
+            successMessage.classList.remove('show');
+        };
+
+        const showSuccess = (message) => {
+            successMessage.textContent = `✅ ${message}`;
+            successMessage.classList.add('show');
+            errorMessage.classList.remove('show');
+        };
+        const submitJoinRequest = async () => {
+            const code = resolveCode().toUpperCase();
+
+            if (!code || code.length < 6) {
+                showError('El código debe tener al menos 6 caracteres.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/courses/join`, {
+                    method: 'POST',
+                    headers: authHeaders,
+                    body: JSON.stringify({ code })
+                });
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    showError(data.message || 'No se pudo procesar tu solicitud.');
+                    return;
+                }
+
+                localStorage.setItem('lastCourseCode', code);
+
+                if (data.status === 'APPROVED') {
+                    showSuccess('¡Bienvenido! Te redirigimos a tu clase...');
+                    await loadCourses();
+                    setTimeout(() => {
+                        window.location.href = `./clase.html?courseId=${data.courseId}`;
+                    }, 1200);
+                } else if (data.status === 'PENDING') {
+                    showSuccess('Solicitud enviada. Espera la aprobación del docente.');
+                    await loadCourses();
+                } else {
+                    showError(data.message || 'Tu solicitud fue rechazada por el docente.');
+                }
+            } catch (error) {
+                console.error(error);
+                showError(`No se pudo contactar con ${API_BASE}.`);
+            }
+        };
+
+        function buildCourseCard(course) {
+            const card = document.createElement('article');
+            card.className = 'class-card';
+            const isApproved = course.status === 'APPROVED';
+            const badgeColor = isApproved ? 'rgba(16,185,129,0.9)' : 'rgba(245,158,11,0.9)';
+            card.innerHTML = `
+                <div class="class-image" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+                    📘
+                    <div class="class-badge" style="background:${badgeColor};">
+                        ${isApproved ? 'En progreso' : 'Pendiente'}
+                    </div>
+                </div>
+                <div class="class-content">
+                    <h3 class="class-title">${course.title}</h3>
+                    <div class="class-teacher">👨‍🏫 ${course.teacherName || 'Docente asignado'}</div>
+                    <div class="class-meta">
+                        <span>📂 ${course.category || 'General'}</span>
+                        <span>⏱️ ${course.durationMinutes || 0} min</span>
+                    </div>
+                    <div class="class-actions">
+                        ${isApproved
+                            ? `<button class="class-btn btn-continue" data-course="${course.id}">Entrar</button>`
+                            : '<button class="class-btn btn-view" disabled>Esperando aprobación</button>'
+                        }
+                    </div>
+                </div>
+            `;
+            if (isApproved) {
+                card.querySelector('.btn-continue').addEventListener('click', () => {
+                    window.location.href = `./clase.html?courseId=${course.id}`;
+                });
+            }
+            return card;
+        }
+
+        async function loadCourses() {
+            classesGrid.innerHTML = '';
+            emptyState.style.display = 'none';
+            try {
+                const response = await fetch(`${API_BASE}/courses/student`, { headers: authHeaders });
+                if (!response.ok) {
+                    throw new Error('No se pudieron cargar tus cursos');
+                }
+                const courses = await response.json();
+                if (!courses.length) {
+                    emptyState.style.display = 'block';
+                    return;
+                }
+                courses.forEach(course => classesGrid.appendChild(buildCourseCard(course)));
+            } catch (error) {
+                console.error(error);
+                emptyState.style.display = 'block';
+                emptyState.querySelector('p').textContent = 'No se pudieron cargar tus clases. Intenta nuevamente.';
+            }
+        }
+
+        joinForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            await submitJoinRequest();
+        });
+
+        quickJoinBtn.addEventListener('click', async () => {
+            await submitJoinRequest();
+        });
+
+        loadCourses();
+    </script>
+</body>
+</html>
