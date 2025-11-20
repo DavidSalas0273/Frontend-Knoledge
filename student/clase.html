@@ -623,616 +623,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge - Mi Clase</title>
+    <title>Mi Clase - Knowledge</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #4c84ff;
             --secondary: #8b5cf6;
             --accent: #10b981;
             --bg-dark: #0a0e1a;
             --bg-card: #151b2e;
-            --bg-card-hover: #1a2238;
+            --bg-muted: #1a2238;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --border-color: rgba(76, 132, 255, 0.18);
+            --border: rgba(76,132,255,0.2);
         }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
         }
-
-        .header {
-            position: fixed;
+        header {
+            background: rgba(10,14,26,0.95);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 14, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(76, 132, 255, 0.1);
+            z-index: 10;
+            backdrop-filter: blur(18px);
         }
-
         .nav-container {
-            max-width: 1400px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 1.2rem 3rem;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
             text-decoration: none;
             color: var(--text-primary);
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
         }
-
         .logo-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 8px 24px rgba(76, 132, 255, 0.3);
+            font-size: 1.2rem;
         }
-
-        .logo span {
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        .course-switcher {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .course-switcher select,
-        .inline-join input {
-            background: rgba(76, 132, 255, 0.1);
-            border: 1px solid rgba(76, 132, 255, 0.3);
-            border-radius: 999px;
-            color: var(--text-primary);
-            padding: 0.35rem 1rem;
-            font-weight: 600;
-        }
-
-        .student-actions {
-            display: flex;
-            gap: 0.7rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .back-button,
-        .inline-join button {
-            border-radius: 999px;
-            border: 1px solid rgba(76, 132, 255, 0.4);
-            background: transparent;
-            color: var(--text-primary);
-            padding: 0.35rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .inline-join {
-            display: flex;
-            gap: 0.4rem;
-            align-items: center;
-        }
-
         main {
-            max-width: 1200px;
-            margin: 160px auto 80px;
+            max-width: 1100px;
+            margin: 2rem auto 4rem;
             padding: 0 2rem;
             display: flex;
             flex-direction: column;
             gap: 2rem;
         }
-
         .card {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2.4rem;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
         }
-
         .card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.2rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(76, 132, 255, 0.15);
-            border: 1px solid rgba(76, 132, 255, 0.35);
-            border-radius: 999px;
-            padding: 0.45rem 0.9rem;
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .section {
+        .info-row {
             display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
-
-        .list {
+        .actions-row {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .materials-list, .activities-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-
-        .list-item {
-            background: rgba(76, 132, 255, 0.05);
-            border: 1px solid rgba(76, 132, 255, 0.15);
+        .material-item, .activity-card {
+            background: var(--bg-muted);
             border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
             padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
         }
-
-        .materials-list iframe {
+        .activity-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .submission-form {
+            display: grid;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+        input, textarea {
             width: 100%;
-            height: 220px;
-            border-radius: 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            color: var(--text-primary);
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        button {
             border: none;
-        }
-
-        .materials-list a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .materials-list a:hover {
-            text-decoration: underline;
-        }
-
-        .empty-state {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        label {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        input[type="file"] {
-            background: rgba(76, 132, 255, 0.05);
-            border: 2px dashed rgba(76, 132, 255, 0.25);
             border-radius: 12px;
-            padding: 1rem;
-            color: var(--text-secondary);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-radius: 12px;
-            padding: 0.75rem 1.6rem;
+            padding: 0.9rem 1.5rem;
             font-weight: 600;
-            font-size: 0.95rem;
             cursor: pointer;
-            border: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #fff;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 32px rgba(76, 132, 255, 0.25);
+        .btn-outline {
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-primary);
         }
-
-        .label-inline {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .submission-status {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #a7f3d0;
+        .alert {
+            padding: 0.8rem 1rem;
             border-radius: 12px;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: none;
             font-weight: 600;
-            display: inline-flex;
-            gap: 0.5rem;
         }
-
-        .submission-status.pending {
-            background: rgba(234, 179, 8, 0.12);
-            border-color: rgba(234, 179, 8, 0.35);
-            color: #fcd34d;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            main {
-                margin-top: 140px;
-                padding: 0 1.2rem;
-            }
-
-            .card {
-                padding: 2rem;
-            }
-        }
+        .alert.show { display: block; }
+        .alert-success { background: rgba(16,185,129,0.15); color: var(--accent); }
+        .alert-error { background: rgba(239,68,68,0.15); color: #fca5a5; }
     </style>
 </head>
 <body>
-    <header class="header">
+    <header>
         <div class="nav-container">
-            <a href="../index.html" class="logo">
+            <a href="./mis-clases.html" class="logo">
                 <div class="logo-icon">🎓</div>
-                <span>Knowledge</span>
+                <span>Mis clases</span>
             </a>
-            <div class="student-actions">
-                <button class="back-button" id="backToListBtn">← Mis clases</button>
-                <div class="course-switcher">
-                    <span>Mis clases:</span>
-                    <select id="studentCourseSwitcher"></select>
-                </div>
-                <div class="inline-join">
-                    <input type="text" id="inlineJoinCode" placeholder="Código" maxlength="12" />
-                    <button id="inlineJoinBtn">Entrar</button>
-                </div>
+            <div>
+                <span id="studentNameHeader"></span>
             </div>
         </div>
     </header>
 
     <main>
+        <div class="alert" id="pageAlert"></div>
+
         <section class="card">
-            <div class="section" id="courseOverview">
-                <span class="badge" id="courseBadge">Clase</span>
-                <h1 id="courseTitle" style="font-size: 2.4rem; font-weight: 800;"></h1>
-                <p id="courseDescription" style="color: var(--text-secondary); line-height: 1.6;"></p>
-                <div id="courseMeta" style="display: flex; gap: 1rem; flex-wrap: wrap; color: var(--text-secondary);">
-                </div>
-            </div>
+            <h2 id="classTitle">Cargando...</h2>
+            <p id="classDescription"></p>
+        <div class="info-row">
+            <span>👨‍🏫 Profesor: <strong id="teacherName"></strong></span>
+            <span>📂 <span id="classCourse"></span></span>
+            <span>📅 <span id="classDate"></span></span>
+            <span>⏰ <span id="classTime"></span></span>
+            <span>🔑 Código: <strong id="classCode"></strong></span>
+        </div>
+        <div class="actions-row">
+            <button class="btn-outline" id="refreshBtn">Actualizar datos</button>
+        </div>
+    </section>
+
+        <section class="card">
+            <h2>Materiales</h2>
+            <div class="materials-list" id="materialsList"></div>
+            <div id="materialsEmpty" style="color:var(--text-secondary);">Aún no hay recursos compartidos.</div>
         </section>
 
         <section class="card">
-            <h2>Materiales compartidos por el docente</h2>
-            <div id="materialsList" class="materials-list list"></div>
-        </section>
-
-        <section class="card">
-            <h2>Tareas y evaluaciones</h2>
-            <div id="assignmentsList" class="list"></div>
+            <h2>Actividades</h2>
+            <div class="activities-list" id="activitiesList"></div>
+            <div id="activitiesEmpty" style="color:var(--text-secondary);">Tu profesor aún no ha publicado actividades.</div>
         </section>
     </main>
 
     <script>
-        const API_BASE = (() => {
-            if (window.API_URL && window.API_URL.trim()) {
-                return window.API_URL.replace(/\/$/, '');
-            }
-            const origin = window.location.origin;
-            if (origin.includes('5173')) {
-                return 'http://localhost:8081/api/v1';
-            }
-            return `${origin.replace(/\/$/, '')}/api/v1`;
-        })();
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        const courseId = new URLSearchParams(window.location.search).get('courseId');
-
-        if (!token || role !== 'student' || !courseId) {
-            window.location.href = '../login.html';
-        }
-
-        const authHeaders = {
-            'Authorization': `Bearer ${token}`
-        };
-
-        const studentCourseSwitcher = document.getElementById('studentCourseSwitcher');
-        const studentCourseWrapper = studentCourseSwitcher ? studentCourseSwitcher.parentElement : null;
-        const backToListBtn = document.getElementById('backToListBtn');
-        const inlineJoinCode = document.getElementById('inlineJoinCode');
-        const inlineJoinBtn = document.getElementById('inlineJoinBtn');
-        let studentCoursesCache = [];
-
-        if (backToListBtn) {
-            backToListBtn.addEventListener('click', () => {
-                window.location.href = './buscar-clase.html';
-            });
-        }
-
-        const courseBadge = document.getElementById('courseBadge');
-        const courseTitleEl = document.getElementById('courseTitle');
-        const courseDescriptionEl = document.getElementById('courseDescription');
-        const courseMetaEl = document.getElementById('courseMeta');
-        const materialsListEl = document.getElementById('materialsList');
-        const assignmentsListEl = document.getElementById('assignmentsList');
-
-        async function fetchCourseDetail() {
-            const response = await fetch(`${API_BASE}/courses/${courseId}/student`, {
-                headers: authHeaders
-            });
-            if (!response.ok) {
-                const data = await response.json().catch(() => ({}));
-                alert(data.message || 'No tienes acceso a esta clase.');
-                window.location.href = './buscar-clase.html';
-                throw new Error('No autorizado');
-            }
-            return response.json();
-        }
-
-        function renderCourseOverview(course) {
-            courseBadge.textContent = `Clase con ${course.teacherName || 'docente'}`;
-            courseTitleEl.textContent = course.title;
-            courseDescriptionEl.textContent = course.description;
-            courseMetaEl.innerHTML = `
-                <span class="label-inline">📂 ${course.category}</span>
-                <span class="label-inline">⏱️ ${course.durationMinutes} minutos</span>
-            `;
-        }
-
-        function renderMaterials(materials) {
-            materialsListEl.innerHTML = '';
-            if (!materials.length) {
-                materialsListEl.innerHTML = '<p class="empty-state">El docente aún no ha compartido materiales.</p>';
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const claseId = params.get('claseId') || params.get('courseId');
+            if (!claseId) {
+                window.location.href = './mis-clases.html';
                 return;
             }
 
-            materials.forEach((material) => {
-                const item = document.createElement('div');
-                item.className = 'list-item';
-                item.innerHTML = `
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                        <strong>${material.title}</strong>
-                        <span class="badge">${material.type === 'VIDEO_LINK' ? 'Video' : 'Documento'}</span>
-                    </div>
-                    <p style="color: var(--text-secondary);">${material.description || 'Sin descripción'}</p>
-                `;
+            const API_BASE = (() => {
+                const base = (window.API_URL && window.API_URL.trim()) || 'https://backend-knoledge-production.up.railway.app';
+                return base.endsWith('/api/v1') ? base : `${base.replace(/\\/$/, '')}/api/v1`;
+            })();
 
-                if (material.type === 'VIDEO_LINK' && material.resourceUrl) {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = material.resourceUrl;
-                    iframe.allowFullscreen = true;
-                    item.appendChild(iframe);
-
-                    const link = document.createElement('a');
-                    link.href = material.resourceUrl;
-                    link.target = '_blank';
-                    link.textContent = 'Ver video';
-                    item.appendChild(link);
-                } else if (material.downloadUrl) {
-                    const link = document.createElement('a');
-                    link.href = material.downloadUrl;
-                    link.textContent = 'Descargar documento';
-                    item.appendChild(link);
-                }
-
-                materialsListEl.appendChild(item);
-            });
-        }
-
-        function buildAssignmentCard(assignment) {
-            const item = document.createElement('div');
-            item.className = 'list-item';
-
-            const header = document.createElement('div');
-            header.style.display = 'flex';
-            header.style.justifyContent = 'space-between';
-            header.style.alignItems = 'center';
-            header.innerHTML = `
-                <strong>${assignment.title}</strong>
-                <span class="label-inline">Fecha límite: ${assignment.dueDate ? new Date(assignment.dueDate).toLocaleString() : 'No definida'}</span>
-            `;
-            item.appendChild(header);
-
-            const description = document.createElement('p');
-            description.style.color = 'var(--text-secondary)';
-            description.textContent = assignment.description;
-            item.appendChild(description);
-
-            const submission = assignment.submissions.length ? assignment.submissions[0] : null;
-
-            const status = document.createElement('div');
-            status.className = submission ? 'submission-status' : 'submission-status pending';
-            if (submission) {
-                status.innerHTML = `
-                    Entregado el ${new Date(submission.submittedAt).toLocaleString()}
-                    ${submission.grade != null ? `| Nota: ${submission.grade}` : ''}
-                    ${submission.feedback ? `| Retroalimentación: ${submission.feedback}` : ''}
-                `;
-            } else {
-                status.textContent = 'Aún no has enviado esta actividad';
+            const token = localStorage.getItem('token');
+            const role = (localStorage.getItem('userRole') || '').toLowerCase();
+            if (!token || role !== 'student') {
+                window.location.href = '../login.html';
+                return;
             }
-            item.appendChild(status);
+            document.getElementById('studentNameHeader').textContent = localStorage.getItem('userName') || '';
 
-            const form = document.createElement('form');
-            form.className = 'section';
-            form.innerHTML = `
-                <label>Subir actividad (PDF, DOCX, ZIP)</label>
-                <input type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" required>
-                <button class="btn" type="submit">${submission ? 'Reemplazar entrega' : 'Enviar actividad'}</button>
-            `;
+            const headers = { 'Authorization': `Bearer ${token}` };
+            const alertBox = document.getElementById('pageAlert');
+            const refreshBtn = document.getElementById('refreshBtn');
 
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const file = form.file.files[0];
-                if (!file) {
-                    alert('Selecciona un archivo para subir.');
+            async function loadClase() {
+                const response = await fetch(`${API_BASE}/classes/${claseId}`, { headers });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    showAlert('error', data.message || 'No se pudo cargar la clase');
+                    throw new Error(data.message || 'No se pudo cargar la clase');
+                }
+                renderClase(data);
+                return data;
+            }
+
+            async function loadActivities() {
+                const response = await fetch(`${API_BASE}/classes/${claseId}/activities`, { headers });
+                const data = await response.json().catch(() => []);
+                if (!response.ok) {
+                    showAlert('error', data.message || 'No se pudieron cargar las actividades');
+                    throw new Error(data.message || 'No se pudieron cargar las actividades');
+                }
+                renderActivities(data);
+                return data;
+            }
+
+            function renderClase(clase) {
+                document.getElementById('classTitle').textContent = clase.name;
+                document.getElementById('classDescription').textContent = clase.description || 'Sin descripción';
+                document.getElementById('teacherName').textContent = clase.teacherName || 'Profesor';
+                document.getElementById('classCourse').textContent = clase.course || 'General';
+                document.getElementById('classDate').textContent = clase.startDate ? new Date(clase.startDate).toLocaleDateString('es-ES') : 'Por definir';
+                document.getElementById('classTime').textContent = clase.classTime || 'Sin horario';
+                document.getElementById('classCode').textContent = clase.code;
+
+                const materialsList = document.getElementById('materialsList');
+                materialsList.innerHTML = '';
+                const emptyEl = document.getElementById('materialsEmpty');
+                if (!clase.materials || !clase.materials.length) {
+                    emptyEl.style.display = 'block';
                     return;
                 }
+                emptyEl.style.display = 'none';
+                clase.materials.forEach(material => {
+                    const item = document.createElement('div');
+                    item.className = 'material-item';
+                    item.innerHTML = `
+                        <strong>${material.originalName}</strong>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+                            <span style="color:var(--text-secondary);">${material.external ? '🌐 Enlace' : '📎 Archivo'}</span>
+                            <a href="${material.url}" target="_blank" class="btn-primary" style="padding:0.5rem 1rem;">Abrir</a>
+                        </div>
+                    `;
+                    materialsList.appendChild(item);
+                });
+            }
 
+            function renderActivities(activities) {
+                const list = document.getElementById('activitiesList');
+                list.innerHTML = '';
+                if (!activities.length) {
+                    document.getElementById('activitiesEmpty').style.display = 'block';
+                    return;
+                }
+                document.getElementById('activitiesEmpty').style.display = 'none';
+
+                activities.forEach(activity => {
+                    const card = document.createElement('div');
+                    card.className = 'activity-card';
+                    card.innerHTML = `
+                        <h3>${activity.title}</h3>
+                        <p style="color:var(--text-secondary);">${activity.description || 'Sin descripción'}</p>
+                        <div class="info-row">
+                            <span>⏳ Entrega: ${activity.dueDate ? new Date(activity.dueDate).toLocaleString('es-ES') : 'Sin fecha'}</span>
+                            ${activity.youtubeUrl ? `<a href="${activity.youtubeUrl}" target="_blank" style="color:var(--primary);text-decoration:none;">📺 Video</a>` : ''}
+                        </div>
+                        <form class="submission-form" data-id="${activity.id}">
+                            <textarea name="comment" placeholder="Mensaje para tu profesor"></textarea>
+                            <input type="url" name="linkUrl" placeholder="Enlace (opcional)">
+                            <input type="file" name="file">
+                            <button type="submit" class="btn-primary">Enviar tarea</button>
+                        </form>
+                    `;
+                    card.querySelector('.submission-form').addEventListener('submit', submitActivity);
+                    list.appendChild(card);
+                });
+            }
+
+            async function submitActivity(event) {
+                event.preventDefault();
+                const form = event.target;
+                const activityId = form.dataset.id;
                 const formData = new FormData();
-                formData.append('file', file);
-
-                const response = await fetch(`${API_BASE}/courses/assignments/${assignment.id}/submissions`, {
+                const comment = form.querySelector('[name="comment"]').value;
+                const linkUrl = form.querySelector('[name="linkUrl"]').value;
+                const fileInput = form.querySelector('[name="file"]');
+                if (comment) formData.append('comment', comment);
+                if (linkUrl) formData.append('linkUrl', linkUrl);
+                if (fileInput.files.length) {
+                    formData.append('file', fileInput.files[0]);
+                }
+                const response = await fetch(`${API_BASE}/classes/${claseId}/activities/${activityId}/submissions`, {
                     method: 'POST',
-                    headers: authHeaders,
+                    headers: headers,
                     body: formData
                 });
-
                 if (!response.ok) {
                     const data = await response.json().catch(() => ({}));
-                    alert('❌ ' + (data.message || 'No se pudo enviar la actividad'));
+                    showAlert('error', data.message || 'No se pudo enviar tu tarea');
                     return;
                 }
-
-                await loadCourse();
-            });
-
-            item.appendChild(form);
-
-            if (submission && submission.fileUrl) {
-                const link = document.createElement('a');
-                link.href = submission.fileUrl;
-                link.textContent = 'Ver tu última entrega';
-                item.appendChild(link);
+                showAlert('success', 'Tarea enviada correctamente');
+                form.reset();
             }
 
-            return item;
-        }
-
-        function renderAssignments(assignments) {
-            assignmentsListEl.innerHTML = '';
-            if (!assignments.length) {
-                assignmentsListEl.innerHTML = '<p class="empty-state">El docente aún no ha publicado actividades.</p>';
-                return;
+            function showAlert(type, message) {
+                alertBox.textContent = message;
+                alertBox.className = `alert alert-${type} show`;
+                setTimeout(() => alertBox.classList.remove('show'), 3200);
             }
 
-            assignments.forEach((assignment) => {
-                assignmentsListEl.appendChild(buildAssignmentCard(assignment));
-            });
-        }
-
-        async function populateStudentCourses() {
-            if (!studentCourseSwitcher) return;
-            try {
-                const response = await fetch(`${API_BASE}/courses/student`, { headers: authHeaders });
-                if (!response.ok) throw new Error('No se pudieron obtener tus cursos');
-                const courses = await response.json();
-                studentCoursesCache = courses;
-                if (!courses.length) {
-                    if (studentCourseWrapper) studentCourseWrapper.style.display = 'none';
-                    return;
+            async function refreshAll() {
+                try {
+                    await Promise.all([loadClase(), loadActivities()]);
+                } catch (error) {
+                    console.error(error);
                 }
-                studentCourseSwitcher.innerHTML = courses.map(course => `
-                        <option value="${course.id}" ${course.status !== 'APPROVED' ? 'disabled' : ''}>
-                            ${course.title} ${course.status !== 'APPROVED' ? '(pendiente)' : ''}
-                        </option>
-                    `).join('');
-                if (courseId) {
-                    studentCourseSwitcher.value = courseId;
-                }
-                if (!studentCourseSwitcher.dataset.bound) {
-                    studentCourseSwitcher.addEventListener('change', () => {
-                        const selected = studentCourseSwitcher.value;
-                        const selectedCourse = studentCoursesCache.find(course => String(course.id) === String(selected));
-                        if (!selectedCourse) return;
-                        if (selectedCourse.status !== 'APPROVED') {
-                            alert('Aún no puedes acceder a esta clase. Espera la aprobación del docente.');
-                            studentCourseSwitcher.value = courseId;
-                            return;
-                        }
-                        window.location.href = `./clase.html?courseId=${selected}`;
-                    });
-                    studentCourseSwitcher.dataset.bound = 'true';
-                }
-            } catch (error) {
-                console.error(error);
-                if (studentCourseWrapper) studentCourseWrapper.style.display = 'none';
             }
-        }
 
-        async function loadCourse() {
-            const detail = await fetchCourseDetail();
-            renderCourseOverview(detail.course);
-            renderMaterials(detail.materials);
-            renderAssignments(detail.assignments);
-        }
+            refreshBtn.addEventListener('click', refreshAll);
+            window.addEventListener('focus', refreshAll);
+            const REFRESH_INTERVAL = 20000;
+            setInterval(refreshAll, REFRESH_INTERVAL);
 
-        async function joinFromInline() {
-            if (!inlineJoinCode) return;
-            const code = inlineJoinCode.value.trim().toUpperCase();
-            if (!code || code.length < 6) {
-                alert('Ingresa un código válido (mínimo 6 caracteres).');
-                return;
-            }
-            try {
-                const response = await fetch(`${API_BASE}/courses/join`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        ...authHeaders
-                    },
-                    body: JSON.stringify({ code })
-                });
-                const data = await response.json().catch(() => ({}));
-                if (!response.ok) {
-                    alert(data.message || 'No se pudo procesar tu solicitud.');
-                    return;
-                }
-                studentCoursesCache = [];
-                await populateStudentCourses();
-                if (data.status === 'APPROVED') {
-                    window.location.href = `./clase.html?courseId=${data.courseId}`;
-                } else {
-                    alert('Solicitud enviada. Espera la aprobación del docente.');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('No se pudo contactar con el servidor.');
-            }
-        }
-
-        if (inlineJoinBtn) {
-            inlineJoinBtn.addEventListener('click', joinFromInline);
-        }
-
-        if (inlineJoinCode) {
-            inlineJoinCode.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    joinFromInline();
-                }
-            });
-        }
-
-        populateStudentCourses();
-        loadCourse();
+            refreshAll();
+        })();
     </script>
 </body>
 </html>

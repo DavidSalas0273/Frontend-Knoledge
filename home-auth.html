@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge - Tu Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #4c84ff;
+            --secondary: #8b5cf6;
+            --accent: #10b981;
+            --warning: #f59e0b;
+            --bg-dark: #0a0e1a;
+            --bg-card: #151b2e;
+            --bg-card-hover: #1a2238;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.9);
+            border-bottom: 1px solid rgba(76, 132, 255, 0.1);
+            backdrop-filter: blur(18px);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+        .logo-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 28px rgba(76, 132, 255, 0.3);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        .btn {
+            padding: 0.8rem 1.6rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            background: transparent;
+            color: var(--text-primary);
+        }
+        .btn-outline {
+            border-color: rgba(76, 132, 255, 0.4);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+        }
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 200px 2rem 4rem;
+            background: radial-gradient(circle at top, rgba(76,132,255,0.25), transparent 60%);
+        }
+        .hero-content {
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 24px;
+            padding: 1.8rem;
+            min-height: 190px;
+        }
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .card p {
+            color: var(--text-secondary);
+        }
+        .footer {
+            border-top: 1px solid rgba(76,132,255,0.1);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🎓</div>
+                <span>Knowledge</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#novedades">Novedades</a></li>
+                    <li><a href="#clases">Mis clases</a></li>
+                    <li><a href="#recursos">Recursos</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <span id="welcomeText" style="color:var(--text-secondary); font-weight:600;"></span>
+                <button class="btn btn-outline" id="btnGoDashboard">Ir a mi perfil</button>
+                <button class="btn" id="btnLogout">Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-badge" style="text-transform:uppercase; letter-spacing:0.3rem; color:var(--text-secondary);">Bienvenido de nuevo</p>
+            <h1>Continúa tu aprendizaje sin interrupciones</h1>
+            <p>Accede a todas tus clases, materiales y actividades con un solo clic. Detectamos tu sesión automáticamente para que sigas donde lo dejaste.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" id="btnPrimaryCTA">Ir a mis clases</button>
+                <button class="btn btn-outline" id="btnSecondaryCTA">Ver materiales</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="novedades">
+        <h2 style="font-size:2rem; margin-bottom:0.6rem;">Novedades para ti</h2>
+        <p style="color:var(--text-secondary);">Recuerda revisar los materiales y actividades nuevas en tus clases.</p>
+        <div class="cards">
+            <article class="card">
+                <h3>Actividades recientes</h3>
+                <p>Consulta las tareas y actividades que tus profesores han publicado recientemente.</p>
+            </article>
+            <article class="card">
+                <h3>Materiales compartidos</h3>
+                <p>Encuentra los nuevos videos, PDFs o enlaces que se han añadido a tus clases.</p>
+            </article>
+            <article class="card">
+                <h3>Soporte sin fricciones</h3>
+                <p>Necesitas volver al índice público? Usa el enlace en el header sin perder tu sesión.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="clases">
+        <h2 style="font-size:2rem; margin-bottom:0.6rem;">Accesos rápidos</h2>
+        <p style="color:var(--text-secondary);">Accede directamente a las vistas clave según tu rol.</p>
+        <div class="cards">
+            <article class="card">
+                <h3>Mis clases</h3>
+                <p>Ingresa a tu panel principal con un solo clic.</p>
+                <button class="btn btn-primary" style="margin-top:1rem;" id="btnQuickDashboard">Ir ahora</button>
+            </article>
+            <article class="card">
+                <h3>Materiales compartidos</h3>
+                <p>Consulta los recursos disponibles en tus clases actuales.</p>
+                <button class="btn btn-outline" style="margin-top:1rem;" id="btnQuickMaterials">Abrir materiales</button>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        © <span id="year"></span> Knowledge. Sesión activa.
+    </footer>
+
+    <script>
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('userRole');
+        const userName = localStorage.getItem('userName');
+        const welcomeText = document.getElementById('welcomeText');
+        const btnGoDashboard = document.getElementById('btnGoDashboard');
+        const btnLogout = document.getElementById('btnLogout');
+        const btnPrimaryCTA = document.getElementById('btnPrimaryCTA');
+        const btnSecondaryCTA = document.getElementById('btnSecondaryCTA');
+        const btnQuickDashboard = document.getElementById('btnQuickDashboard');
+        const btnQuickMaterials = document.getElementById('btnQuickMaterials');
+
+        const redirectToDashboard = () => {
+            const roleNormalized = (role || '').toUpperCase();
+            if (roleNormalized === 'TEACHER') {
+                window.location.href = 'teacher/mis-clases.html';
+            } else {
+                window.location.href = 'student/mis-clases.html';
+            }
+        };
+
+        const redirectToMaterials = () => {
+            const roleNormalized = (role || '').toUpperCase();
+            if (roleNormalized === 'TEACHER') {
+                window.location.href = 'teacher/mis-clases.html';
+            } else {
+                window.location.href = 'student/mis-clases.html';
+            }
+        };
+
+        if (!token || !role) {
+            window.location.href = 'login.html';
+        } else {
+            welcomeText.textContent = `Hola, ${userName || 'Usuario'}`;
+        }
+
+        const roleNormalized = (role || '').toUpperCase();
+        const profileLabel = roleNormalized === 'TEACHER'
+            ? 'Ir a mi perfil de Docente'
+            : 'Ir a mi perfil de Estudiante';
+        btnGoDashboard.textContent = profileLabel;
+        btnPrimaryCTA.textContent = profileLabel;
+        btnQuickDashboard.textContent = profileLabel;
+
+        btnGoDashboard.addEventListener('click', redirectToDashboard);
+        btnPrimaryCTA.addEventListener('click', redirectToDashboard);
+        btnQuickDashboard.addEventListener('click', redirectToDashboard);
+
+        btnSecondaryCTA.addEventListener('click', redirectToMaterials);
+        btnQuickMaterials.addEventListener('click', redirectToMaterials);
+
+        btnLogout.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
