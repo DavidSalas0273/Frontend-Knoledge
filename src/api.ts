@@ -1,5 +1,13 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL ?? "http://localhost:8081/api/v1";
+const API_BASE_URL = (() => {
+  if (import.meta.env?.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  const origin = window.location.origin;
+  if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
+    return "http://localhost:8081/api/v1";
+  }
+  return "https://backend-knoledge-production.up.railway.app/api/v1";
+})();
 
 const AUTH_ENDPOINT = `${API_BASE_URL}/auth`;
 const USUARIOS_ENDPOINT = `${API_BASE_URL}/usuarios`;

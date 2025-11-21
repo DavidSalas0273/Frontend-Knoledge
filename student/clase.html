@@ -326,10 +326,10 @@
                 return window.API_URL.replace(/\/$/, '');
             }
             const origin = window.location.origin;
-            if (origin.includes('5173')) {
+            if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('5173')) {
                 return 'http://localhost:8081/api/v1';
             }
-            return `${origin.replace(/\/$/, '')}/api/v1`;
+            return 'https://backend-knoledge-production.up.railway.app/api/v1';
         })();
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
