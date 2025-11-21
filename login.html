@@ -754,6 +754,18 @@
             });
         }
 
+        function decodeRoleFromToken(token) {
+            if (!token || typeof token !== 'string' || token.split('.').length < 2) return null;
+            try {
+                const payload = token.split('.')[1];
+                const json = JSON.parse(atob(payload));
+                return (json.role || json.rol || '').toString().toLowerCase();
+            } catch (e) {
+                console.warn('No se pudo decodificar el rol del token', e);
+                return null;
+            }
+        }
+
         function showAlert(type, message) {
             const target = type === 'error' ? alertError : alertSuccess;
             const messageContainer = type === 'error' ? errorMessage : successMessage;
@@ -821,11 +833,13 @@
                 if (usuario && usuario.email) {
                     localStorage.setItem('email', usuario.email);
                 }
-                if (usuario && usuario.role) {
-                    const roleLower = String(usuario.role).toLowerCase();
-                    localStorage.setItem('role', roleLower);
-                    localStorage.setItem('userRole', roleLower);
-                }
+                const roleLower = (() => {
+                    if (usuario && usuario.role) return String(usuario.role).toLowerCase();
+                    const decoded = decodeRoleFromToken(token);
+                    return decoded || 'student';
+                })();
+                localStorage.setItem('role', roleLower);
+                localStorage.setItem('userRole', roleLower);
                 if (usuario && usuario.id) {
                     localStorage.setItem('userId', usuario.id);
                 }
@@ -841,8 +855,7 @@
                 resetButton(submitButton);
 
                 setTimeout(() => {
-                    const role = usuario && usuario.role ? usuario.role : 'student';
-                    if (role === 'teacher') {
+                    if (roleLower === 'teacher') {
                         window.location.href = './teacher/mis-clases.html';
                     } else {
                         window.location.href = './student/buscar-clase.html';
