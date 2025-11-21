@@ -197,6 +197,14 @@
                 <a href="./mis-clases.html" class="active">Mis cursos</a>
                 <a href="./crear-curso.html">Crear curso</a>
             </nav>
+            <div class="user-menu" id="userMenu">
+                <span class="user-name" id="userName">Docente</span>
+                <div class="user-badge" id="userBadge">👩‍🏫</div>
+                <div class="user-dropdown" id="userDropdown" style="display:none;">
+                    <a href="../profile.html" id="goProfile">Perfil</a>
+                    <button id="logoutBtn" type="button">Cerrar sesión</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -235,6 +243,31 @@
         const role = (localStorage.getItem('role') || '').toLowerCase();
         if (!token || role !== 'teacher') {
             window.location.href = '../login.html';
+        }
+
+        const storedName = (localStorage.getItem('userName') || localStorage.getItem('email') || 'Docente').trim();
+        const userNameEl = document.getElementById('userName');
+        const userBadgeEl = document.getElementById('userBadge');
+        if (userNameEl) userNameEl.textContent = storedName || 'Docente';
+        if (userBadgeEl) userBadgeEl.textContent = storedName ? storedName.charAt(0).toUpperCase() : '👩‍🏫';
+        const userMenu = document.getElementById('userMenu');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (userMenu && userDropdown) {
+            userMenu.addEventListener('click', () => {
+                userDropdown.style.display = userDropdown.style.display === 'none' ? 'block' : 'none';
+            });
+            document.addEventListener('click', (e) => {
+                if (!userMenu.contains(e.target)) {
+                    userDropdown.style.display = 'none';
+                }
+            });
+        }
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '../login.html';
+            });
         }
 
         const coursesGrid = document.getElementById('coursesGrid');
