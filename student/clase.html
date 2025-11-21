@@ -332,7 +332,7 @@
             return 'https://backend-knoledge-production.up.railway.app/api/v1';
         })();
         const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
+        const role = (localStorage.getItem('role') || '').toLowerCase();
         const courseId = new URLSearchParams(window.location.search).get('courseId');
 
         if (!token || role !== 'student' || !courseId) {

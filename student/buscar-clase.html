@@ -395,7 +395,7 @@
         })();
 
         const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
+        const role = (localStorage.getItem('role') || '').toLowerCase();
         if (!token || role !== 'student') {
             window.location.href = '../login.html';
         }

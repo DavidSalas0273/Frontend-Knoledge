@@ -822,8 +822,9 @@
                     localStorage.setItem('email', usuario.email);
                 }
                 if (usuario && usuario.role) {
-                    localStorage.setItem('role', usuario.role);
-                    localStorage.setItem('userRole', usuario.role);
+                    const roleLower = String(usuario.role).toLowerCase();
+                    localStorage.setItem('role', roleLower);
+                    localStorage.setItem('userRole', roleLower);
                 }
                 if (usuario && usuario.id) {
                     localStorage.setItem('userId', usuario.id);
